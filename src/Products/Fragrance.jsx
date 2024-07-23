@@ -23,7 +23,7 @@ function Fragrance (){
          {
                 fragrance.products?.map((perf)=>
                <div key={fragrance.products.id} className="fragrance" >
-                    <img src={perf.images[0]} alt="" />
+                    <img src={perf.images[0]} alt="" loading="lazy" />
                     <p>{perf.title}</p>
                     <p>${perf.price}</p>
                </div>

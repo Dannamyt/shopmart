@@ -19,7 +19,7 @@ function HomeDecor(){
          {
                 homeDecor.products?.map((home)=>
                <div key={homeDecor.products.id} className="home-decor" >
-                    <img src={home.images[0]} alt="" />
+                    <img src={home.images[0]} alt="" loading="lazy" />
                     <p>{home.title}</p>
                     <p>${home.price}</p>
                </div>

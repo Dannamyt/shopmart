@@ -1,7 +1,6 @@
 import { useEffect,useState } from "react"
 
-// import './react-practice/src/output.css'
-
+import { Link } from "react-router-dom"
 function Furniture(){
    
     const [furniture, setFurniture] =useState([])
@@ -23,8 +22,10 @@ function Furniture(){
          {
                 furniture.products?.map((wood)=>
                <div key={furniture.products.id} className="furniture" >
-                    <img src={wood.images[0]} alt="" />
-                    <p>{wood.title}</p>
+                    <Link to={`/furnitures/${wood.id}`}>
+                        <img src={wood.images[0]} alt="" loading="lazy" />
+                        <p>{wood.title}</p>
+                    </Link>
                     <p>${wood.price}</p>
                </div>
                 )

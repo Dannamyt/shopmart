@@ -21,7 +21,7 @@ function Groceries(){
              {
                 grocery.products?.slice(4).map((cereal)=>
                <div key={grocery.products.id} className="groceries" >
-                    <img src={cereal.images[0]} alt="" />
+                    <img src={cereal.images[0]} alt="" loading="lazy" />
                     <p>{cereal.title}</p>
                     <p>${cereal.price}</p>
                </div>

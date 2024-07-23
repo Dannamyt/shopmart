@@ -1,45 +1,54 @@
-import { useEffect, useState } from 'react'
-import Navbar from './Navbar.jsx'
-import HeroSection from './HeroSection.jsx'
-import BrowseByCategory from './BrowseByCategory.jsx'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import Beauty from './Products/Beauty.jsx'
 import Fragrance from './Products/Fragrance.jsx'
 import Furniture from './Products/Furniture.jsx'
 import Groceries from './Products/Groceries.jsx'
 import HomeDecor from './Products/HomeDecor.jsx'
-import './App.css'
-import './output.css'
+import Smartphones from './Products/Smartphones.jsx'
+import WomenDresses from './Products/WomenDresses.jsx'
+import MenShoes from './Products/MenShoes.jsx'
+import MainLayout from './MainLayout.jsx'
+import {Route,Routes } from 'react-router-dom'
+import ProductDetails from './ProductDetails.jsx'
+import MenShirts from './Products/MenShirts.jsx'
+import Sunglasses from './Products/Sunglasses.jsx'
+import Navbar from './Navbar.jsx'
+import Loading from './Loading.jsx'
+
+const Laptops = lazy(()=> delayForDemo(import('./Products/Laptops.jsx')))
+
+function delayForDemo(promise) {
+  return new Promise(resolve => {
+    setTimeout(resolve, 4000);
+  }).then(() => promise);
+}
 
 function App() {
-const[cart,setCart] = useState([])
- 
-useEffect(()=>{
-  async function getCart(url){
-    let data = await fetch(url)
-    const response = await data.json()
-    console.log(response)
-    setCart(response)
-   }
-   getCart('https://dummyjson.com/products/categories')
-},[])
-
- console.log(2)
   return (
-    <>
-      <div className='App'>
-
-       <Navbar/>
-       <HeroSection cart={cart}/>
-       <BrowseByCategory/>
-       <Beauty cart={cart}/>
-       <Fragrance cart={cart}/>
-       <Furniture/>
-       <Groceries/>
-       <HomeDecor/>
-
-      </div>
-    
-    </>
+    <div className='app'>
+      <Navbar/>
+      <Routes>
+        <Route index path='/' element={<MainLayout/>} />
+        <Route path='beauty' element={<Beauty/>} />
+        <Route path='fragrance' element={<Fragrance/>} />
+        <Route path='furnitures' element={<Furniture/>} />
+        <Route path='groceries' element={<Groceries/>} />
+        <Route path='homeDecor' element={<HomeDecor/>} />
+        <Route path='laptops' element={
+              <Suspense fallback={<Loading/>}>
+              <Laptops/>
+              </Suspense>
+            } />
+        <Route path='sunglasses' element={<Sunglasses/>} />
+        <Route path='/sunglasses/:id' element={<ProductDetails />} />
+        <Route path='women-dresses' element={<WomenDresses/>} />
+        <Route path='men-shirts' element={<MenShirts/>} />
+        <Route path='men-shoes' element={<MenShoes/>} />
+        <Route path='/beauty/:id' element={<ProductDetails />} />
+        <Route path='/laptops/:id' element={<ProductDetails />} />
+        <Route path='/furnitures/:id' element={<ProductDetails />} />
+      </Routes>
+    </div>
   )
 }
 
